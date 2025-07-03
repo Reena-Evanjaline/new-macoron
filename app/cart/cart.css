@@ -1,0 +1,76 @@
+/* cart.css */
+
+.btn-pink {
+  background-color: #ff007f;
+  color: #fff;
+  border: none;
+}
+.btn-pink:hover {
+  background-color: #e60073;
+}
+
+.img-thumbnail {
+  border: none;
+  border-radius: 12px;
+}
+
+@media (max-width: 768px) {
+  .img-thumbnail {
+    width: 80px !important;
+    height: 80px !important;
+  }
+}
+.btn-pink {
+  background-color: #ff69b4; /* hot pink */
+  color: white;
+  border: none;
+}
+
+.btn-pink:hover {
+  background-color: #ff4fa1;
+}
+.cart-box {
+  border: 1px solid #ec008c;
+  border-radius: 16px;
+  background: #fff;
+}
+
+.summary-box {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.cart-item {
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+}
+
+.quantity-controls {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.quantity-controls button {
+  border: none;
+  background: #f8f8f8;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+.quantity-controls span {
+  padding: 0 10px;
+}
+
+.btn-pink {
+  background: linear-gradient(90deg, #ec008c, #fc67a0);
+  color: white;
+  border: none;
+}
+
+.btn-pink:hover {
+  opacity: 0.9;
+}

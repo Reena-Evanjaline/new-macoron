@@ -1,0 +1,94 @@
+.mega-hover:hover .mega-menu {
+  display: block;
+}
+
+.mega-menu {
+  display: none;
+  position: absolute;
+ 
+  left: 0;
+  width: 600px;
+  background-color: #fff;
+  z-index: 1000;
+  border-top: 1px solid #eee;
+}
+
+.mega-menu li:hover {
+  color: #ec4899;
+}
+.mega-hover:hover .mega-menu {
+  display: block;
+}
+
+.mega-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width:600px;
+  background-color: white;
+  z-index: 1000;
+  border-top: 1px solid #eee;
+}
+
+/* Mega menu container */
+.mega-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  background-color: #fff;
+  z-index: 999;
+  padding: 30px 60px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Show on hover */
+.mega-hover:hover .mega-menu {
+  display: flex;
+}
+
+/* Basic font size and layout */
+.mega-menu ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.mega-menu li {
+  font-size: 16px; /* 🔼 increased font size */
+  padding: 8px 0;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.mega-menu li:hover {
+  color: #ec4899;
+}
+
+.text-pink {
+  color: #ec4899 !important;
+}
+
+.fw-bold {
+  font-weight: 600;
+}
+
+.bg-light-rounded {
+  background: #f8f8f8;
+  border-radius: 16px;
+  padding: 6px 12px;
+}
+
+/* Nav icons */
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* Dropdown toggle styling (Category) */
+.dropdown-toggle {
+  font-size: 16px;
+  font-weight: 500;
+}

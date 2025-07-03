@@ -1,0 +1,218 @@
+.subcategory-nav .subcategory-item {
+  font-weight: 500;
+  cursor: pointer;
+  color: #555;
+  transition: 0.2s ease;
+}
+.subcategory-nav .subcategory-item:hover {
+  color: #ec4899;
+  border-bottom: 2px solid #ec4899;
+}
+
+.product-card img {
+  height: 200px;
+  object-fit: contain;
+}
+.product-card {
+  transition: all 0.3s ease;
+  background-color: #fff;
+}
+
+.product-card:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  border-color: #ec4899;
+  transform: translateY(-5px);
+}
+.subcategory-item {
+  cursor: pointer;
+  color: #666;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.subcategory-item:hover {
+  color: #e91e63;
+  text-decoration: underline;
+}
+
+/* Product card hover effect */
+.product-card {
+  transition: all 0.3s ease;
+  background-color: #fff;
+}
+
+.product-card:hover {
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+  border-color: #ec4899;
+}
+.product-card {
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+  transform: scale(1.02);
+}
+
+.hover-icons {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  z-index: 2;
+  transition: opacity 0.3s ease;
+}
+
+.product-card:hover .hover-icons {
+  opacity: 1;
+}
+
+.icon-circle {
+  background-color: white;
+  border-radius: 50%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.icon-circle:hover {
+  background-color: #fce7f3;
+  color: #ec4899;
+}
+
+.subcategory-item {
+  cursor: pointer;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: #f8f9fa;
+  transition: background 0.3s ease;
+}
+
+.subcategory-item:hover {
+  background: #ffe4f1;
+}
+/* Discount Badge Styling */
+.discount-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #a01b3a;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-bottom-left-radius: 6px;
+  z-index: 10;
+}
+
+/* Hover icons (heart & bag) */
+.hover-icons {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.product-card:hover .hover-icons {
+  opacity: 1;
+}
+
+.icon-circle {
+  background: #fff;
+  border-radius: 50%;
+  padding: 8px;
+  font-size: 14px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+/* Product Image Wrapper */
+.product-image-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Discount Badge */
+.discount-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #a01b3a;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-bottom-left-radius: 6px;
+  z-index: 2;
+}
+
+/* Hover Icons */
+.hover-icons {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 3;
+}
+
+.product-image-wrapper:hover .hover-icons {
+  opacity: 1;
+}
+
+/* Icon Style */
+.icon-circle {
+  background: #fff;
+  border-radius: 50%;
+  padding: 8px;
+  font-size: 14px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+/* Discount badge at the top-right of the product card */
+.discount-badge-top {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #a01b3a;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-bottom-left-radius: 6px;
+  border-top-right-radius: 6px;
+  z-index: 10;
+}
+
+/* Hover icons hidden initially */
+.hover-icons {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 5;
+}
+
+/* Show icons on hover */
+.product-card:hover .hover-icons {
+  opacity: 1;
+}
+
+/* Circle styling for icons */
+.icon-circle {
+  background: #fff;
+  border-radius: 50%;
+  padding: 8px;
+  font-size: 14px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
