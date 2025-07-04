@@ -51,14 +51,13 @@ export async function DELETE(req) {
   try {
     const { searchParams } = new URL(req.url);
     const id = searchParams.get('id');
-
     if (!id) {
       return NextResponse.json({ error: 'Cart ID is required' }, { status: 400 });
     }
 
     await db.query('DELETE FROM cart WHERE id = ?', [id]);
 
-    return NextResponse.json({ message: 'Item removed from cart' }, { status: 200 });
+    return NextResponse.json({ message: 'Item permanently deleted from cart' }, { status: 200 });
   } catch (error) {
     console.error('Error deleting cart item:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });

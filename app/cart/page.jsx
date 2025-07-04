@@ -12,76 +12,87 @@ import Link from 'next/link';
 export default function CartPage() {
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
-    async function fetchCart() {
+    const token = Cookies.get('Authtoken');
+    if (token) {
       try {
-        setLoading(true);
-
-        const token = Cookies.get('Authtoken');
-        if (!token) throw new Error('Not logged in');
-
         const decoded = jwtDecode(token);
-        const userId = decoded?.id;
-        if (!userId) throw new Error('Invalid user');
-
-        const res = await fetch(`/api/get-cart?user_id=${userId}`);
-        if (!res.ok) throw new Error('Failed to fetch cart');
-
-        const data = await res.json();
-
-        const cleanedItems = (data.cartItems || []).map(item => ({
-          ...item,
-          price: Number(item.price) || 0,
-          original: Number(item.original) || 0,
-          quantity: Number(item.quantity) || 1,
-          discount: Number(item.discount) || 0,
-        }));
-
-        setCart(cleanedItems);
+        setUserId(decoded?.id);
       } catch (err) {
-        console.error(err);
-        toast.error('Failed to load cart.');
-      } finally {
-        setLoading(false);
+        console.error('Invalid token:', err);
       }
     }
-
-    fetchCart();
   }, []);
 
-  // Totals
-  const total = cart.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0
-  );
-  const originalTotal = cart.reduce(
-    (acc, item) => acc + item.original * item.quantity,
-    0
-  );
+  const fetchCart = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch(`/api/get-cart?user_id=${userId}`);
+      if (!res.ok) throw new Error('Failed to fetch cart');
+      const data = await res.json();
+      const cleanedItems = (data.cartItems || []).map(item => ({
+        ...item,
+        price: Number(item.price) || 0,
+        original: Number(item.original) || 0,
+        quantity: Number(item.quantity) || 1,
+        discount: Number(item.discount) || 0,
+      }));
+      setCart(cleanedItems);
+    } catch (err) {
+      console.error(err);
+      toast.error('Failed to load cart.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (userId) fetchCart();
+  }, [userId]);
+
+  const handleDelete = async (cartItemId) => {
+    try {
+      const res = await fetch(`/api/cart?id=${cartItemId}`, {
+        method: 'DELETE',
+      });
+      console.log(cartItemId);
+      
+      if (!res.ok) throw new Error('Delete failed');
+      toast.success('Item permanently removed from cart.');
+      fetchCart();
+    } catch (err) {
+      console.error(err);
+      toast.error('Failed to delete item.');
+    }
+  };
+
+  const handleClearCart = async () => {
+    try {
+      const res = await fetch(`/api/cart?user_id=${userId}`, {
+        method: 'DELETE',
+      });
+      if (!res.ok) throw new Error('Clear cart failed');
+      toast.success('All items permanently removed from cart.');
+      fetchCart();
+    } catch (err) {
+      console.error(err);
+      toast.error('Failed to clear cart.');
+    }
+  };
+
+  const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const originalTotal = cart.reduce((acc, item) => acc + item.original * item.quantity, 0);
   const saved = originalTotal - total;
-
-  // Delete a single item
-  const handleDelete = (id) => {
-    setCart(prev => prev.filter(item => item.id !== id));
-    toast.success('Item removed from cart.');
-  };
-
-  // Delete all items
-  const handleClearCart = () => {
-    setCart([]);
-    toast.success('All items removed from cart.');
-  };
 
   return (
     <>
       <Navbar />
-
       <div className="container my-5">
         <div className="row">
           <div className="col-md-8">
             <div className="border rounded p-3 mb-3">
-
               <div className="form-check mb-3">
                 <input
                   className="form-check-input"
@@ -100,13 +111,10 @@ export default function CartPage() {
               {!loading && cart.length > 0 && (
                 <>
                   {cart.map(item => (
-                    <div
-                      key={item.id}
-                      className="d-flex align-items-start gap-3 mb-4 border-top pt-3 position-relative"
-                    >
+                    <div key={item.cart_id} className="d-flex align-items-start gap-3 mb-4 border-top pt-3 position-relative">
                       <input
                         type="checkbox"
-                        checked
+                       
                         readOnly
                         className="form-check-input mt-2"
                       />
@@ -121,9 +129,7 @@ export default function CartPage() {
                         <div className="fw-bold">
                           [{item.brand}] {item.name}
                         </div>
-                        <span className="badge bg-light text-dark mt-1">
-                          COD
-                        </span>
+                        <span className="badge bg-light text-dark mt-1">COD</span>
                         <div className="fw-bold text-danger mt-1">
                           ₹{item.price.toLocaleString()}
                           {item.original > item.price && (
@@ -142,7 +148,7 @@ export default function CartPage() {
                         </div>
                       </div>
                       <button
-                        onClick={() => handleDelete(item.id)}
+                        onClick={() => handleDelete(item.cart_id)}
                         className="btn btn-sm btn-outline-danger mt-2"
                       >
                         Delete
@@ -150,12 +156,7 @@ export default function CartPage() {
                     </div>
                   ))}
 
-                  <button
-                    className="btn btn-outline-danger btn-sm mt-2"
-                    onClick={handleClearCart}
-                  >
-                    Remove Selected Items
-                  </button>
+                 
                 </>
               )}
             </div>
@@ -197,7 +198,6 @@ export default function CartPage() {
               >
                 Checkout →
               </Link>
-
               <p className="text-muted small mt-2">
                 * Vouchers can be applied on the checkout page.
               </p>
@@ -205,7 +205,6 @@ export default function CartPage() {
           </div>
         </div>
       </div>
-
       <Footer />
     </>
   );
