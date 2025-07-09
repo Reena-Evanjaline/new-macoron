@@ -21,6 +21,8 @@ export default function Footer() {
             <p className="small text-white">
               Made in Korea is your one-stop shop for the trendiest Asian fashion and beauty products. We offer an affordable, wide selection worldwide, plus the latest tips and secrets in beauty and styling.
             </p>
+            <p>This Site is Developed for Dr KIM ESTHER  HYANG SOOK  , CEO  INKOMO</p>
+           
           </div>
 
           {/* ABOUT MADE IN KOREA */}
@@ -34,6 +36,7 @@ export default function Footer() {
                 <a href="#" className="text-decoration-none text-white">Privacy Policy</a>
               </li>
             </ul>
+             <p>Address : D3, Tulash Garden, 3rd stret, Baby nagar  Velachery, chennai 600042</p>
           </div>
 
           {/* CUSTOMER CARE */}
