@@ -15,9 +15,10 @@ function ProductDetails() {
     stock: '',
     category: '',
     sku: '',
-    discount: '',         // NEW
+    discount: '',
     alt_text: '',
     sort_order: '',
+    keywords: '',
   });
 
   const [files, setFiles] = useState([]);
@@ -200,6 +201,19 @@ function ProductDetails() {
                 value={form.alt_text}
               />
             </div>
+
+            {/* Keywords */}
+            <div className="col-md-12 mb-3">
+              <label className="form-label">Keywords</label>
+              <input
+                type="text"
+                className="form-control"
+                name="keywords"
+                placeholder="Comma-separated keywords"
+                onChange={handleChange}
+                value={form.keywords}
+              />
+            </div>
           </div>
 
           {/* Description */}
@@ -233,7 +247,6 @@ function ProductDetails() {
                 <p>Drag & drop images here, or click to select</p>
               )}
             </div>
-
             {files.length > 0 && (
               <ul className="mt-3">
                 {files.map((file, index) => (

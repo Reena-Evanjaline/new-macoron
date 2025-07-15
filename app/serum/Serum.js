@@ -51,7 +51,7 @@ export default function ProductList() {
           const tags = product.tags ?? [];
 
           return (
-            <div className="col-12 col-md-4 col-lg-3 mb-4" key={i}>
+            <div className="col-6 col-md-4 col-lg-3 mb-4" key={i}>
               <div className="product-card border rounded p-3 h-100 d-flex flex-column justify-content-between position-relative">
                 <div className="discount-badge-top">{discount}% OFF</div>
 
@@ -68,8 +68,8 @@ export default function ProductList() {
                   />
                 </Link>
 
-                <div className="fw-bold">{product.name}</div>
-                <div className="small text-muted">{product.description}</div>
+                <div className="fw-bold text-truncate-1">{product.name}</div>
+                <div className="small text-muted text-truncate-2">{product.description}</div>
                 <div className="mt-2 fw-bold text-danger">
                   ₹{parseFloat(product.price).toLocaleString()}
                   <span className="text-muted fw-normal text-decoration-line-through ms-2">

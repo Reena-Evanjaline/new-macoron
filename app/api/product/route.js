@@ -17,21 +17,20 @@ export async function POST(req) {
     const discount = formData.get('discount') || 0;
     const altText = formData.get('alt_text') || '';
     const sortOrder = formData.get('sort_order') || 0;
+    const keywords = formData.get('keywords') || '';
 
     if (!name || !slug) {
       return NextResponse.json({ error: 'Name and slug are required.' }, { status: 400 });
     }
 
-    // Insert product with discount
     const [productResult] = await db.execute(
-      `INSERT INTO products (name, slug, description, price, stock, category, sku, discount)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-      [name, slug, description, price, stock, category, sku, discount]
+      `INSERT INTO products (name, slug, description, price, stock, category, sku, discount, keywords)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [name, slug, description, price, stock, category, sku, discount, keywords]
     );
 
     const productId = productResult.insertId;
 
-    // Handle images
     const imageFiles = formData.getAll('images');
     const uploaded = [];
 
@@ -64,7 +63,6 @@ export async function POST(req) {
   }
 }
 
-
 export async function GET() {
   try {
     const [rows] = await db.execute(`
@@ -78,6 +76,7 @@ export async function GET() {
         p.category,
         p.sku,
         p.discount,
+        p.keywords,
         i.id as image_id,
         i.image_url,
         i.alt_text,
@@ -88,7 +87,6 @@ export async function GET() {
       ORDER BY p.id DESC, i.sort_order ASC
     `, ['serum']);
 
-    // Group by product_id as before
     const grouped = {};
     for (const row of rows) {
       if (!grouped[row.product_id]) {
@@ -102,6 +100,7 @@ export async function GET() {
           category: row.category,
           sku: row.sku,
           discount: row.discount,
+          keywords: row.keywords,
           images: [],
         };
       }
@@ -121,4 +120,3 @@ export async function GET() {
     return NextResponse.json({ error: 'Failed to fetch products.' }, { status: 500 });
   }
 }
-

@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import Navbar from '@/app/components/Navbar';
 import Footer from '@/app/components/Footer';
 import { jwtDecode } from 'jwt-decode';
+import './product.css';
 
 export default function ProductPage({ token }) {
   const params = useParams();
@@ -16,6 +17,7 @@ export default function ProductPage({ token }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     if (!slug) return;
@@ -153,18 +155,31 @@ export default function ProductPage({ token }) {
   return (
     <>
       <Navbar />
+
       <div className="container py-5">
         <div className="row gy-4">
           <div className="col-md-6 text-center">
-            <Image
-              src={firstImage}
-              alt={firstAlt}
-              width={600}
-              height={600}
-              className="img-fluid rounded border p-3"
-              style={{ objectFit: 'contain', maxHeight: '600px', width: '100%', height: 'auto' }}
-              priority
-            />
+            <div
+              className="product-image-wrapper"
+              onClick={() => setShowModal(true)}
+              style={{ cursor: 'zoom-in' }}
+            >
+              <Image
+                src={firstImage}
+                alt={firstAlt}
+                width={600}
+                height={600}
+                className="img-fluid rounded border p-3"
+                style={{
+                  objectFit: 'contain',
+                  maxHeight: '600px',
+                  width: '100%',
+                  height: 'auto',
+                }}
+                priority
+              />
+              <div className="text-muted small mt-2">(Click to Zoom)</div>
+            </div>
           </div>
 
           <div className="col-md-6">
@@ -211,7 +226,43 @@ export default function ProductPage({ token }) {
           </div>
         </div>
       </div>
+
       <Footer />
+
+      {showModal && (
+        <div
+          className="modal-overlay"
+          onClick={() => setShowModal(false)}
+        >
+          <span
+            className="modal-close"
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowModal(false);
+            }}
+          >
+            &times;
+          </span>
+
+          <div
+            className="modal-zoom-container"
+            onMouseMove={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect();
+              const x = ((e.clientX - rect.left) / rect.width) * 100;
+              const y = ((e.clientY - rect.top) / rect.height) * 100;
+              e.currentTarget.style.setProperty('--zoom-x', `${x}%`);
+              e.currentTarget.style.setProperty('--zoom-y', `${y}%`);
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={firstImage}
+              alt={firstAlt}
+              className="modal-zoom-image"
+            />
+          </div>
+        </div>
+      )}
     </>
   );
 }

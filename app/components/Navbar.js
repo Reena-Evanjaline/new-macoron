@@ -105,13 +105,13 @@ export default function Navbar() {
           <div className="container d-flex justify-content-between align-items-center flex-wrap">
             <div className="d-flex gap-4 flex-wrap align-items-center p-3">
               <Link href="/shipping" className="text-reset text-decoration-none">
-                <div className="d-flex align-items-center gap-1 fs-7" style={{fontSize:"12px"}}>
-                  <FaPlane size={14} /> <span className="text-muted  fs-7">INTERNATIONAL SHIPPING</span>
+                <div className="d-flex align-items-center gap-1 fs-7" style={{ fontSize: "12px" }}>
+                  <FaPlane size={15} /> <span className="fw-bold fs-7">INTERNATIONAL SHIPPING</span>
                 </div>
               </Link>
-              <Link href="/faq" className="text-reset text-decoration-none" style={{fontSize:"12px"}}>
+              <Link href="/faq" className="text-reset text-decoration-none" style={{ fontSize: "12px" }}>
                 <div className="d-flex align-items-center gap-1">
-                  <FaUndo size={14} /> <span>FAQ</span>
+                  <FaUndo size={15} /> <span className='fw-bold'>FAQ</span>
                 </div>
               </Link>
             </div>
@@ -135,14 +135,19 @@ export default function Navbar() {
 
             {/* Mobile Header */}
             <div className="d-flex d-lg-none align-items-center gap-2 mb-2 me-auto">
-              <FaBars className="fs-4 cursor-pointer btn p-0 mt-2" onClick={() => setMobileMenuOpen(true)} />
+              <FaBars className="fs-1 cursor-pointer btn p-0 mt-2" onClick={() => setMobileMenuOpen(true)} />
               <Image
-                src="/images/lo-mobile.png"
+                src="/images/lo-1.png"
                 alt="Mobile Logo"
-                width={23}
-                height={45}
+                width={150}
+                height={60}
+                sizes="(max-width: 480px) 200px, (max-width: 768px) 220px, 220px"
+                style={{ width: '100%', height: 'auto' }}
                 priority
               />
+
+
+
             </div>
 
             {/* Desktop Left Section */}
@@ -201,19 +206,23 @@ export default function Navbar() {
                 </div>
               </div>
               <a className="nav-link" href="/brand">Brand</a>
-              <a className="nav-link" href="#">Exclusive Offers</a>
+              <a className="nav-link" href="/exclusive">Exclusive Offers</a>
             </div>
 
             {/* Desktop Center Logo */}
             <div className="position-absolute top-50 start-50 translate-middle d-none d-lg-block">
-              <Image
-                src="/images/lo.png"
-                alt="Desktop Logo"
-                width={450}
-                height={300}
-                style={{ objectFit: 'contain' }}
-                priority
-              />
+              <Link href="/" passHref legacyBehavior>
+                <a>
+                  <Image
+                    src="/images/lo-1.png"
+                    alt="Desktop Logo"
+                    width={130}
+                    height={80}
+                    style={{ objectFit: 'contain' }}
+                    priority
+                  />
+                </a>
+              </Link>
             </div>
 
             {/* Right Icons and Search */}
