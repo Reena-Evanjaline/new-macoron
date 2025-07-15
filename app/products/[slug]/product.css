@@ -108,3 +108,43 @@
 .modal-zoom-container:hover .modal-zoom-image {
   transform-origin: var(--zoom-x, 50%) var(--zoom-y, 50%);
 }
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 2rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+.modal-zoom-container {
+  position: relative;
+  overflow: hidden;
+  width: 90vw;
+  max-width: 800px;
+  height: 90vh;
+  max-height: 800px;
+}
+
+.modal-zoom-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform-origin: var(--zoom-x, 50%) var(--zoom-y, 50%);
+  transform: scale(2);
+  transition: transform 0.1s;
+}
+
+.modal-zoom-container.mobile .modal-zoom-image {
+  transform: scale(1);
+}

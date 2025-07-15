@@ -18,6 +18,14 @@ export default function ProductPage({ token }) {
   const [error, setError] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [showModal, setShowModal] = useState(false);
+  const [isMobileView, setIsMobileView] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobileView(window.innerWidth <= 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     if (!slug) return;
@@ -117,10 +125,9 @@ export default function ProductPage({ token }) {
 
     try {
       const res = await fetch(`/api/get-address?user_id=${userId}`);
-      if (!res.ok) throw new Error('Failed to check address');
       const data = await res.json();
 
-      if (data?.hasAddress) {
+      if (res.ok && data?.hasAddress) {
         router.push('/cart');
       } else {
         router.push('/address');
@@ -170,12 +177,7 @@ export default function ProductPage({ token }) {
                 width={600}
                 height={600}
                 className="img-fluid rounded border p-3"
-                style={{
-                  objectFit: 'contain',
-                  maxHeight: '600px',
-                  width: '100%',
-                  height: 'auto',
-                }}
+                style={{ objectFit: 'contain', maxHeight: '600px', width: '100%', height: 'auto' }}
                 priority
               />
               <div className="text-muted small mt-2">(Click to Zoom)</div>
@@ -214,12 +216,8 @@ export default function ProductPage({ token }) {
             </div>
 
             <div className="d-grid gap-2 d-md-flex">
-              <button className="btn btn-outline-dark flex-fill" onClick={addToCart}>
-                Add To Cart
-              </button>
-              <button className="btn btn-dark flex-fill" onClick={handleBuyNow}>
-                Buy Now
-              </button>
+              <button className="btn btn-outline-dark flex-fill" onClick={addToCart}>Add To Cart</button>
+              <button className="btn btn-dark flex-fill" onClick={handleBuyNow}>Buy Now</button>
             </div>
 
             <p className="mt-4 text-muted small">{product.description}</p>
@@ -229,37 +227,25 @@ export default function ProductPage({ token }) {
 
       <Footer />
 
+      {/* Modal Zoom View */}
       {showModal && (
-        <div
-          className="modal-overlay"
-          onClick={() => setShowModal(false)}
-        >
-          <span
-            className="modal-close"
-            onClick={(e) => {
-              e.stopPropagation();
-              setShowModal(false);
-            }}
-          >
-            &times;
-          </span>
+        <div className="modal-overlay" onClick={() => setShowModal(false)}>
+          <span className="modal-close" onClick={(e) => { e.stopPropagation(); setShowModal(false); }}>&times;</span>
 
           <div
-            className="modal-zoom-container"
-            onMouseMove={(e) => {
-              const rect = e.currentTarget.getBoundingClientRect();
-              const x = ((e.clientX - rect.left) / rect.width) * 100;
-              const y = ((e.clientY - rect.top) / rect.height) * 100;
-              e.currentTarget.style.setProperty('--zoom-x', `${x}%`);
-              e.currentTarget.style.setProperty('--zoom-y', `${y}%`);
-            }}
+            className={`modal-zoom-container ${isMobileView ? 'mobile' : ''}`}
+            onMouseMove={
+              isMobileView ? undefined : (e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+                e.currentTarget.style.setProperty('--zoom-x', `${x}%`);
+                e.currentTarget.style.setProperty('--zoom-y', `${y}%`);
+              }
+            }
             onClick={(e) => e.stopPropagation()}
           >
-            <img
-              src={firstImage}
-              alt={firstAlt}
-              className="modal-zoom-image"
-            />
+            <img src={firstImage} alt={firstAlt} className="modal-zoom-image" />
           </div>
         </div>
       )}

@@ -36,6 +36,8 @@ export default function Banner() {
     '/images/11.jpg',
     '/images/12.jpg',
     '/images/13.jpg',
+    '/images/14.jpg',
+    '/images/15.jpg',
   ];
 
   const mobileSlides = [
@@ -44,6 +46,9 @@ export default function Banner() {
     '/images/mo-3.png',
     '/images/mo-4.png',
     '/images/mo-5.png',
+    '/images/mo-6.png',
+    '/images/mo-7.png',
+    '/images/mo-8.png',
   ];
 
   return (
