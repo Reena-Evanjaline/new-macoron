@@ -30,14 +30,14 @@ export default function Banner() {
     '/images/4.webp',
     '/images/5.webp',
     '/images/6.webp',
-    '/images/8.jpg',
-    '/images/9.jpg',
-    '/images/10.jpg',
-    '/images/11.jpg',
-    '/images/12.jpg',
-    '/images/13.jpg',
-    '/images/14.jpg',
-    '/images/15.jpg',
+    { src: '/images/8.jpg', link: '/brightening-cream' },
+    { src: '/images/9.jpg', link: '/brightening-cream' },
+    { src: '/images/10.jpg', link: '/brightening-cream' },
+    { src: '/images/11.jpg', link: '/brightening-cream' },
+    { src: '/images/12.jpg', link: '/brightening-cream' },
+    { src: '/images/13.jpg', link: '/brightening-cream' },
+    { src: '/images/14.jpg', link: '/brightening-cream' },
+    { src: '/images/15.jpg', link: '/brightening-cream' },
   ];
 
   const mobileSlides = [
@@ -80,11 +80,9 @@ export default function Banner() {
 
               return (
                 <SwiperSlide key={index}>
-                  {image.link ? (
-                    <Link href={image.link}>{imgElement}</Link>
-                  ) : (
-                    imgElement
-                  )}
+                  <Link href={image.link} passHref legacyBehavior>
+                    <a style={{ display: 'block' }}>{imgElement}</a>
+                  </Link>
                 </SwiperSlide>
               );
             })}
@@ -99,22 +97,37 @@ export default function Banner() {
             loop
             className="w-100"
           >
-            {desktopSlides.map((image, index) => (
-              <SwiperSlide key={index}>
+            {desktopSlides.map((item, index) => {
+              const src = typeof item === 'string' ? item : item.src;
+              const link = typeof item === 'string' ? null : item.link;
+
+              const imageContent = (
                 <div
                   className="desktop-slide"
                   style={{ position: 'relative', aspectRatio: '3.84/1', width: '100%' }}
                 >
                   <Image
-                    src={image}
+                    src={src}
                     alt={`Desktop Slide ${index + 1}`}
                     fill
                     sizes="100vw"
                     style={{ objectFit: 'cover' }}
                   />
                 </div>
-              </SwiperSlide>
-            ))}
+              );
+
+              return (
+                <SwiperSlide key={index}>
+                  {link ? (
+                    <Link href={link} passHref legacyBehavior>
+                      <a style={{ display: 'block' }}>{imageContent}</a>
+                    </Link>
+                  ) : (
+                    imageContent
+                  )}
+                </SwiperSlide>
+              );
+            })}
           </Swiper>
         </div>
       )}
