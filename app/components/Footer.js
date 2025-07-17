@@ -110,6 +110,16 @@ export default function Footer() {
                 <a href="/faq" className="text-decoration-none text-white">Frequently Asked Questions (FAQs)</a>
               </li>
             </ul>
+             <div className="footer-logo-container">
+          <Image
+            src="/images/1-logo.png"
+            alt="Made in Korea Logo"
+            width={50}
+            height={50}
+            className="footer-logo"
+            priority
+          />
+        </div>
           </div>
 
           {/* DISCLAIMER */}
@@ -135,7 +145,7 @@ export default function Footer() {
         </div>
 
         {/* Desktop Logo in Corner */}
-       
+
       </div>
 
       <div className="text-center py-3 mt-4 border-top border-white">
@@ -143,16 +153,7 @@ export default function Footer() {
           &copy; {new Date().getFullYear()} Made In Korea. All rights reserved.
         </small>
       </div>
-       <div className="footer-logo-container">
-          <Image
-            src="/images/1-logo.png"
-            alt="Made in Korea Logo"
-            width={80}
-            height={80}
-            className="footer-logo"
-            priority
-          />
-        </div>
+
     </footer>
   );
 }

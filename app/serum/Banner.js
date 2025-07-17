@@ -8,17 +8,17 @@ import 'swiper/css/pagination';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './serum.css';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Banner() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Function to check if screen is mobile size
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
 
-    checkMobile(); // initial check
+    checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
@@ -41,14 +41,14 @@ export default function Banner() {
   ];
 
   const mobileSlides = [
-    '/images/mo-1.png',
-    '/images/mo-2.png',
-    '/images/mo-3.png',
-    '/images/mo-4.png',
-    '/images/mo-5.png',
-    '/images/mo-6.png',
-    '/images/mo-7.png',
-    '/images/mo-8.png',
+    { src: '/images/mo-1.png', link: '/brightening-cream' },
+    { src: '/images/mo-2.png', link: '/brightening-cream' },
+    { src: '/images/mo-3.png', link: '/brightening-cream' },
+    { src: '/images/mo-4.png', link: '/brightening-cream' },
+    { src: '/images/mo-5.png', link: '/brightening-cream' },
+    { src: '/images/mo-6.png', link: '/exclusive' },
+    { src: '/images/mo-7.png', link: '/brightening-cream' },
+    { src: '/images/mo-8.png', link: '/brightening-cream' },
   ];
 
   return (
@@ -62,17 +62,32 @@ export default function Banner() {
             loop
             className="w-100"
           >
-            {mobileSlides.map((image, index) => (
-              <SwiperSlide key={index}>
-                <div className="mobile-slide" style={{ position: "relative", aspectRatio: "3/2", width: "100%" }}>
+            {mobileSlides.map((image, index) => {
+              const imgElement = (
+                <div
+                  className="mobile-slide"
+                  style={{ position: 'relative', aspectRatio: '3/2', width: '100%' }}
+                >
                   <Image
-                    src={image}
+                    src={image.src}
                     alt={`Mobile Slide ${index + 1}`}
                     fill
+                    sizes="100vw"
+                    style={{ objectFit: 'cover' }}
                   />
                 </div>
-              </SwiperSlide>
-            ))}
+              );
+
+              return (
+                <SwiperSlide key={index}>
+                  {image.link ? (
+                    <Link href={image.link}>{imgElement}</Link>
+                  ) : (
+                    imgElement
+                  )}
+                </SwiperSlide>
+              );
+            })}
           </Swiper>
         </div>
       ) : (
@@ -86,11 +101,16 @@ export default function Banner() {
           >
             {desktopSlides.map((image, index) => (
               <SwiperSlide key={index}>
-                <div className="mobile-slide" style={{ position: "relative", aspectRatio: "3.84/1", width: "100%" }}>
+                <div
+                  className="desktop-slide"
+                  style={{ position: 'relative', aspectRatio: '3.84/1', width: '100%' }}
+                >
                   <Image
                     src={image}
-                    alt={`Mobile Slide ${index + 1}`}
+                    alt={`Desktop Slide ${index + 1}`}
                     fill
+                    sizes="100vw"
+                    style={{ objectFit: 'cover' }}
                   />
                 </div>
               </SwiperSlide>

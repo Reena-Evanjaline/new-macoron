@@ -56,7 +56,13 @@ export default function Navbar() {
     },
     'K-POP': {
       'K-POP': [{ name: 'Album', link: '/k-pop' }]
-    }
+    },
+     'Exclusive': {
+      'Exclusive': [{ name: 'Exclusive', link: '/exclusive' }]
+    },
+     'Brand': {
+      'Brand': [{ name: 'Brand', link: '/brand' }]
+    },
   };
 
   useEffect(() => {
